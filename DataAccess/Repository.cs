@@ -92,6 +92,9 @@ namespace DataAccess
             return ApplySpecification(specification).FirstOrDefault();
         }
 
+        // select... from... join... join... where.. order by
+        //
+
         private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> specification)
         {
             var evaluator = new SpecificationEvaluator();

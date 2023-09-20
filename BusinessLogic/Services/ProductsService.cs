@@ -97,7 +97,8 @@ namespace BusinessLogic.Services
            
             //using custom mapping object Product =>object  ProductDto
            //get from DB with Repository
-            var product= _productRepo.Get(filter: x => x.Id == id, includeProperties: new[] { "Category" }).SingleOrDefault();
+            //var product= _productRepo.Get(filter: x => x.Id == id, includeProperties: new[] { "Category" }).SingleOrDefault();
+            var product = _productRepo.GetItemBySpec(new ProductsSpesification.ById((int)id));
             //ProductDto productDto = new ProductDto()
             //{
             //    Id = product.Id,
@@ -115,9 +116,9 @@ namespace BusinessLogic.Services
         {   //include properties: LEFT JOIN in SQL
             //return _productRepo.Get(includeProperties: new[] { "Category"}).ToList();
 
-            var products = _productRepo.Get(includeProperties: new[] { "Category" }).ToList();
+            //var products = _productRepo.Get(includeProperties: new[] { "Category" }).ToList();
             //using specifications
-            //var products = _productRepo.GetListBySpec(new ProductsSpesification.AllWithSort());
+            var products = _productRepo.GetListBySpec(new ProductsSpesification.AllWithSort());
 
             //return products.Select(product => new ProductDto
             //{

@@ -9,14 +9,14 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BusinessLogic.Specifications
 {
-    public class ProductsSpesification
+    public static class ProductsSpesification
     {
         public class AllWithSort : Specification<Product>
         {
             public AllWithSort()
             {
                 Query
-                    .OrderBy (a => a.Name)
+                    .OrderByDescending(a => a.Name)
                     .Include(x => x.Category);
             }
         }

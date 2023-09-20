@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLogic.DTOs;
 using BusinessLogic.Interfaces;
+using BusinessLogic.Specifications;
 using DataAccess.Entities;
 using DataAccess.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -115,6 +116,8 @@ namespace BusinessLogic.Services
             //return _productRepo.Get(includeProperties: new[] { "Category"}).ToList();
 
             var products = _productRepo.Get(includeProperties: new[] { "Category" }).ToList();
+            //using specifications
+            //var products = _productRepo.GetListBySpec(new ProductsSpesification.AllWithSort());
 
             //return products.Select(product => new ProductDto
             //{

@@ -27,9 +27,12 @@ namespace BusinessLogic.Services
         {
             //SmtpClient smtpClient=new SmtpClient(); 
             //string EMAIL= "shrolts@gmail.com";
+           // string emailFrom = _configuration["MailData:EmailFrom"];
             MailData data = _configuration.GetSection("MailData").Get<MailData>();
             string EMAIL = data.EmailFrom;
             string PASSWORD = data.Password;
+            string HOST = data.Host;
+            int PORT=data.Port;
 
             // create email message
             var email = new MimeMessage();
@@ -40,7 +43,8 @@ namespace BusinessLogic.Services
 
             // send email
             using var smtp = new SmtpClient();
-            smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+            //smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+            smtp.Connect(HOST, PORT, SecureSocketOptions.StartTls);
             smtp.Authenticate(EMAIL, PASSWORD);
             smtp.Send(email);
             smtp.Disconnect(true);

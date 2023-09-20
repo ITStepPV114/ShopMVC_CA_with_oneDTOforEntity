@@ -1,4 +1,6 @@
-﻿using DataAccess.Data;
+﻿using Ardalis.Specification;
+using Ardalis.Specification.EntityFrameworkCore;
+using DataAccess.Data;
 using DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -44,7 +46,7 @@ namespace DataAccess
             }
         }
 
-        public virtual TEntity GetByID(object id)
+        public virtual TEntity? GetByID(object id)
         {
             return dbSet.Find(id);
         }
@@ -77,6 +79,23 @@ namespace DataAccess
 
         public virtual void Save() { 
             context.SaveChanges();
+        }
+
+        // working with specifications
+        public IEnumerable<TEntity> GetListBySpec(ISpecification<TEntity> specification)
+        {
+            return ApplySpecification(specification).ToList();
+        }
+
+        public TEntity? GetItemBySpec(ISpecification<TEntity> specification)
+        {
+            return ApplySpecification(specification).FirstOrDefault();
+        }
+
+        private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> specification)
+        {
+            var evaluator = new SpecificationEvaluator();
+            return evaluator.GetQuery(dbSet, specification);
         }
     }
 

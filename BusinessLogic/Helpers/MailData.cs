@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Helpers
 {
-    internal class MailData
+    public class MailData
     {
+        public string  Host { get; set; }
+        public int  Port{ get; set; }
+        public string EmailFrom { get; set; }
+        public string Password { get; set; }
     }
 }

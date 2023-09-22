@@ -13,25 +13,29 @@ using NuGet.Protocol.Core.Types;
 using DataAccess.Interfaces;
 using DataAccess;
 using Microsoft.Extensions.Options;
+using BusinessLogic;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
- 
+builder.Services.AddRazorPages();
 //get connection string
 string connection = builder.Configuration.GetConnectionString("ShopMVCConnection") ?? throw new InvalidOperationException("Connection string 'ShopMVCConnection' not found.");
 //add contect WebAppLibraryContext as service by application
-builder.Services.AddDbContext<ShopMVCDbContext>(options =>
-{
-    options.UseSqlServer(connection);
-    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking); //for 
-});
+//builder.Services.AddDbContext<ShopMVCDbContext>(options =>
+//{
+//    options.UseSqlServer(connection);
+//    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking); //for 
+//});
+builder.Services.AddDbContext(connection);
 
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ShopMVCDbContext>();
+//builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddRoles<IdentityRole>()
+//    .AddEntityFrameworkStores<ShopMVCDbContext>();
+builder.Services.AddIdentity();
 
-//add Fluent Validators
+
+//add Fluent Validators => move to ServiceExtensions
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -52,20 +56,24 @@ builder.Services.AddSession(options => {
 //- Scoped: IoC container will create an instance of the specified service
 //          type once per request and will be shared in a single request.
 //di remote services
-builder.Services.AddScoped<IProductsService, ProductsService>();
-builder.Services.AddScoped<ICartService, CartService>();
-builder.Services.AddScoped<IOrdersService, OrdersService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IFileService, FileService>();
-builder.Services.AddScoped<IMailService, MailService>();
 
+//==================================
+//builder.Services.AddScoped<IProductsService, ProductsService>();
+//builder.Services.AddScoped<IOrdersService, OrdersService>();
+//builder.Services.AddScoped<ICategoryService, CategoryService>();
+//builder.Services.AddScoped<IFileService, FileService>();
+//builder.Services.AddScoped<IMailService, MailService>();
+
+builder.Services.AddCustomServices();
+//========================================================
+builder.Services.AddScoped<ICartService, CartService>();
 //add IRepositore for all Entities
 
 //builder.Services.AddScoped<IRepository<Product>, Repository<Product>>();
 //builder.Services.AddScoped<IRepository<Category>, Repository<Category>>();
 // OR
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
+//builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddRepository();
 //Add auto mapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

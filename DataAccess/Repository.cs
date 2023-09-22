@@ -97,7 +97,7 @@ namespace DataAccess
 
         private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> specification)
         {
-            var evaluator = new SpecificationEvaluator();
+            var evaluator = new SpecificationEvaluator(); //
             return evaluator.GetQuery(dbSet, specification);
         }
     }

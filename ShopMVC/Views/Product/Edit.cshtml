@@ -27,7 +27,7 @@
             <input asp-for="ImagePath" type="text" step="0.01" class="form-control" hidden>
         </div>
         <div class="col-md-6">
-            <img src="~/images/@Model.ImagePath" class="card-img-top w-25" alt="...">
+            <img src="@Model.ImagePath" class="card-img-top w-25" alt="...">
             <label asp-for="Image" class="form-label">Image</label>
             <input asp-for="Image" type="file" class="form-control">
         </div>

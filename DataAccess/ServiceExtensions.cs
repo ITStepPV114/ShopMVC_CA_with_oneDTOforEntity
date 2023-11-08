@@ -33,8 +33,7 @@ namespace DataAccess
 
         public static void AddIdentity(this IServiceCollection services)
         {
-
-          services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddEntityFrameworkStores<ShopMVCDbContext>();
         }
 

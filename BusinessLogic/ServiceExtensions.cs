@@ -30,6 +30,8 @@ namespace BusinessLogic
             services.AddScoped<IMailService, MailService>();
         }
 
+
+
         
     }
 }

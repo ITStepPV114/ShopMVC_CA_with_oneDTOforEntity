@@ -35,7 +35,11 @@ namespace DataAccess
         {
             services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddEntityFrameworkStores<ShopMVCDbContext>();
-        }
+            //.AddDefaultTokenProviders();
+            //  .AddSignInManager<SignInManager<User>>()
+            //.AddDefaultTokenProviders();
+
+         }
 
 
     }

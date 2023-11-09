@@ -30,10 +30,10 @@ string connection = builder.Configuration.GetConnectionString("AzureConnection")
 //});
 builder.Services.AddDbContext(connection);
 
-//builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddRoles<IdentityRole>()
-//    .AddEntityFrameworkStores<ShopMVCDbContext>();
-builder.Services.AddIdentity();
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ShopMVCDbContext>();
+//builder.Services.AddIdentity();
 
 
 //add Fluent Validators => move to ServiceExtensions
@@ -106,7 +106,6 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 
 app.UseSession();
 app.MapRazorPages();

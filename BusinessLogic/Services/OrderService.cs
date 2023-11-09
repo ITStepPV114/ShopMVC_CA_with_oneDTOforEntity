@@ -43,8 +43,8 @@ namespace ShopMVC.Services
         public IEnumerable<Order> GetAll(string userId)
         {
             //return _context.Orders.Where(o => o.UserId == userId).ToList();
-          //  return _repoOrder.Get(filter:o => o.UserId == userId).ToList();
-            return _repoOrder.Get(filter:o => o.UserId == userId, includeProperties: "Category" ).ToList();
+            return _repoOrder.Get(filter: o => o.UserId == userId).ToList();
+            //return _repoOrder.Get(filter:o => o.UserId == userId, includeProperties: "Category" ).ToList();
         }
 
         //public Order GetById(int id, string userId)

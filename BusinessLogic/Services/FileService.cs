@@ -24,7 +24,7 @@ namespace BusinessLogic.Services
         {
             string root = _environment.WebRootPath;
             var oldFile = Path.Combine(root, imagePath);
-            if (File.Exists(oldFile))
+            if (File.Exists(oldFile) && !imagePath.Contains("NoImage.jpg"))
               {
                File.Delete(oldFile);
             }
@@ -50,7 +50,8 @@ namespace BusinessLogic.Services
                 await file.CopyToAsync(fileStream);
             }
 
-            return fullFileName;
+            return fullFileName ?? "NoImage.jpg";
+            //return imagePath ?? Path.Combine("images", "NoImage.jpg");
         }
 
     }

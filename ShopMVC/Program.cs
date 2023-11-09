@@ -33,7 +33,7 @@ builder.Services.AddDbContext(connection);
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ShopMVCDbContext>();
-//builder.Services.AddIdentity();
+//builder.Services.AddIdentity(); //service in DataAccess
 
 
 //add Fluent Validators => move to ServiceExtensions

@@ -30,16 +30,17 @@ namespace BusinessLogic.Services
 
         public void Creat(ProductDto productDto)
         {
-            if (productDto.Image != null)
-            {
-                //save image to server
+            //if (productDto.Image != null)
+            //{
+            //    //save image to server
                 string imagePath = _fileService.SaveProductImage(productDto.Image).Result;
                 productDto.ImagePath = imagePath;
-            }
-            else {
-                productDto.ImagePath = "NoImage.jpg";
-            }
-            
+            //}
+            //else {
+            //    productDto.ImagePath = Path.Combine("images", "NoImage.jpg");
+            //    //productDto.ImagePath = "NoImage.jpg";
+            //}
+
             //Product product = new Product()
             //{
             //    Name = productDto.Name,
@@ -75,7 +76,7 @@ namespace BusinessLogic.Services
                 if (productDto.Image != null)
                 {
 
-                    //save new file
+                    //delete old file
                     _fileService.DeleteProductImage(productOld.ImagePath);
                     //save image to server
                     string imagePath = _fileService.SaveProductImage(productDto.Image).Result;

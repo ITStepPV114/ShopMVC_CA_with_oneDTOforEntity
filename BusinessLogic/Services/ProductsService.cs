@@ -67,7 +67,7 @@ namespace BusinessLogic.Services
             }
         }
 
-        public void Edit(ProductDto productDto)
+        public async void Edit(ProductDto productDto)
         {
             //delete oldfile from "images"
             var productOld = Get(productDto.Id);
@@ -77,7 +77,7 @@ namespace BusinessLogic.Services
                 {
 
                     //delete old file
-                    _fileService.DeleteProductImage(productOld.ImagePath);
+                    _fileService.DeleteProductImage(productOld.ImagePath).Wait();
                     //save image to server
                     string imagePath = _fileService.SaveProductImage(productDto.Image).Result;
                     productDto.ImagePath = imagePath;
@@ -100,6 +100,7 @@ namespace BusinessLogic.Services
            //get from DB with Repository
             //var product= _productRepo.Get(filter: x => x.Id == id, includeProperties: new[] { "Category" }).SingleOrDefault();
             var product = _productRepo.GetItemBySpec(new ProductsSpesification.ById((int)id));
+
             //ProductDto productDto = new ProductDto()
             //{
             //    Id = product.Id,
@@ -140,6 +141,7 @@ namespace BusinessLogic.Services
             //return _context.Categories.ToList();
             //return _categoryRepo.Get().ToList();
             var categories = _categoryRepo.Get();
+            
             return categories.Select(category => new CategoryDto
             {
                 Id = category.Id,

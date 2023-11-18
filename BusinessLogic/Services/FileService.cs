@@ -23,10 +23,14 @@ namespace BusinessLogic.Services
         public async Task DeleteProductImage(string imagePath)
         {
             string root = _environment.WebRootPath;
-            var oldFile = Path.Combine(root, imagePath);
+            var oldFile = Path.Combine(root, imageFolder, Path.GetFileName(imagePath));
             if (File.Exists(oldFile) && !imagePath.Contains("NoImage.jpg"))
-              {
-               File.Delete(oldFile);
+            {
+                await Task.Run(() =>
+            {
+
+                File.Delete(oldFile);
+            });
             }
          }
 
